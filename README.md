@@ -1,73 +1,131 @@
-Performance Analysis of S&P500 Investment Strategies Based on Day of the Month
-Overview
+# S&P500 Investment Analysis
 
-This project explores investment strategies based on the specific day of the month an investor chooses to make their investments in the S&P 500. The main goal is to analyze how investing on a fixed day of the month (e.g., the 1st, 2nd, etc.) impacts overall investment performance from 2010 to 2023.
-Key Steps
+This project performs a detailed analysis of an investment strategy based on the S&P500 index data. The analysis focuses on the performance of investments made on specific days of each month (e.g., the 31st) over a period of time. The project utilizes historical data of the S&P500 index to evaluate performance, compute rankings, and visualize results.
 
-    Data Collection:
-        The dataset is retrieved using the yfinance library, fetching daily data for the S&P 500 index (^GSPC), including open, high, low, and close prices. The historical data spans from 2000 to 2023.
+## Overview
 
-    Filtering the Data:
-        The data is filtered for the period from January 1, 2000, to December 31, 2023, focusing on daily opening prices, which are used as the basis for analysis.
+The primary goal is to explore the effects of investing on different days of the month (from 1st to 31st) and how these choices impact the overall performance over time. The project includes:
 
-    Assigning the First Trading Day of Each Month:
-        For each month, the first trading day (non-holiday weekday) is identified, which is used to align the data for each day in a given month. The goal is to find the corresponding first trading day for a specified day (e.g., the 1st, 2nd, etc.) across all months.
+- Downloading S&P500 data from Yahoo Finance.
+- Filtering and preparing the data.
+- Normalizing the data for comparison across months.
+- Performing investment simulations.
+- Calculating the performance of investments based on various strategies.
+- Plotting results to visualize trends and comparisons.
 
-    Normalization:
-        Each month's data is normalized relative to the first trading day, setting it to a base value of 100. This allows the performance to be compared across months, irrespective of the absolute price levels.
+## Key Steps
 
-    Investment Strategy:
-        An investment of $10,000 is made on the first trading day of each month. The strategy calculates the performance of these investments over time, tracking the number of shares bought and the total value of holdings.
+### 1. Data Download and Preprocessing
+- Download historical data for the S&P500 index using Yahoo Finance (`yfinance`).
+- Filter data from the year 2000 to 2023.
+- Normalize the data (e.g., adjust prices to a base of 100 for each month).
 
-    Performance Calculation:
-        The performance (PERF) is calculated as the ratio of the total value of holdings to the total amount invested. The average performance for each chosen day (e.g., 1st day of each month, 2nd day, etc.) is also computed.
+### 2. Investment Strategy Simulation
+- Simulate investments made on specific days of each month (1st to 31st).
+- Invest a fixed amount (e.g., 10,000 USD) on the chosen day.
+- Track the performance of these investments over time, taking into account the price of the index on the day of investment.
 
-    Rankings and Visualization:
-        The investments are ranked based on their performance (PALMARES). Various plots are generated to visualize the average performance over time and the rankings of each investment day across months.
+### 3. Performance Calculation
+- Calculate the total value of the investments.
+- Calculate the performance as the change in value over the invested amount.
+- Compute the cumulative performance over time and average performance for each day of investment.
 
-    24-Month Moving Average:
-        A 24-month moving average is applied to smooth the performance of each investment day, providing a clearer long-term trend.
+### 4. Visualization
+- Plot the average performance for each day of investment.
+- Display rankings (`PALMARES`) of the performance for each month.
+- Show the evolution of the rankings using line charts.
+- Visualize the performance distribution using heatmaps and stacked bar charts.
 
-    Heatmap and Stacked Bar Chart:
-        The distribution of PALMARES ranks for each investment day is visualized using a heatmap. A stacked bar chart also shows the percentage distribution of ranks across the days of the month.
+### 5. Rolling Average
+- Compute a 24-month rolling average for the performance rankings and visualize the trends for each day of investment.
 
-Data Sources
+### 6. Heatmaps and Stacked Bar Charts
+- Visualize the number of occurrences of each position in the rankings for each day of investment.
+- Display the results as a heatmap.
+- Create an interactive stacked bar chart to represent the relative distribution of rankings.
 
-    S&P500 Data: The dataset is pulled from Yahoo Finance using the yfinance library. It includes daily open, high, low, and close prices of the S&P500 index (^GSPC).
+## Libraries Used
 
-Results
+- `yfinance`: To download S&P500 historical data.
+- `pandas`: Data manipulation and analysis.
+- `numpy`: Numerical operations.
+- `matplotlib`: Plotting and data visualization.
+- `seaborn`: Advanced plotting and heatmap generation.
 
-    Graphs: Several plots are generated to visualize the performance of investments for each chosen day of the month:
-        Line Graphs: Show the average performance (AVG_PERF) for each day of the month.
-        Rank Graph: Displays the ranking (PALMARES) of each day’s performance.
-        24-Month Moving Average: Helps to analyze the smoothened performance trend for each day.
-        Heatmap and Stacked Bar Chart: Provide insights into how frequently certain ranks appear for each investment day.
+## Key Functions
 
-Requirements
+### `find_first_trading_day_for_month(year, month)`
+Finds the first trading day of a given month and year.
 
-To run this project, the following libraries are required:
+### `assign_trading_day(year, month, day)`
+Assigns the next available trading day if the given day is not a trading day.
 
-    yfinance (for fetching financial data)
-    pandas (for data manipulation)
-    numpy (for numerical operations)
-    matplotlib (for plotting graphs)
-    seaborn (for advanced visualization)
+### `normalized_data`
+Contains the normalized S&P500 data (base 100) to compare prices across months.
 
+### `investment_simulation()`
+Simulates investments on a given day of each month, calculating the number of shares bought and the performance of the investment over time.
+
+## Output
+
+- **Performance Graph**: A line chart that shows the average performance (`AVG_PERF`) for each day of investment (1st to 31st).
+- **Ranking Graph**: A graph showing the ranking (`PALMARES`) of each investment day across months.
+- **Rolling Average Graph**: A graph showing the 24-month rolling average of performance rankings for each day of investment.
+- **Heatmaps**: Visualizations of the counts of each ranking position for each day of investment.
+- **Stacked Bar Charts**: Shows the relative percentage distribution of rankings for each day of investment.
+
+## Example Graphs
+
+### Performance of Investments
+
+The first graph shows the average performance over time for each investment day.
+
+![Performance Graph](performance_graph.png)
+
+### Ranking of Days Based on Performance
+
+The second graph displays the ranking of each day in the `PALMARES` across months.
+
+![Ranking Graph](ranking_graph.png)
+
+### 24-Month Rolling Average of Performance
+
+The third graph shows the rolling average of the `PALMARES` over 24 months.
+
+![Rolling Average](rolling_average_graph.png)
+
+### Heatmap of Rankings
+
+The heatmap visualizes the distribution of rankings for each day of investment.
+
+![Heatmap](heatmap.png)
+
+### Stacked Bar Chart of Positions
+
+This stacked bar chart shows the percentage of positions within the `PALMARES` for each day of investment.
+
+![Stacked Bar Chart](stacked_bar_chart.png)
+
+## Requirements
+
+- Python 3.x
+- `yfinance`
+- `pandas`
+- `numpy`
+- `matplotlib`
+- `seaborn`
+
+To install the required libraries, use the following command:
+
+```bash
 pip install yfinance pandas numpy matplotlib seaborn
 
-How to Use
 
-    Install the necessary libraries as mentioned in the requirements section.
-    Run the script in a Python environment (Jupyter Notebook, Python script, etc.).
-    The script will fetch the S&P 500 data, process it, and output various performance graphs.
 
-Example Visualizations
+### Key Points to Customize:
 
-    Performance by Day: A line plot showing the average performance for each day of the month (e.g., Day 1, Day 2, ..., Day 31).
-    Rankings: A plot visualizing the rankings of each day based on the average performance.
-    24-Month Moving Average: A smoothened curve that helps identify long-term performance trends.
-    Heatmap: A heatmap showing how each investment day fares in terms of ranks across months.
+- **Graph Image Links**: Replace the image placeholders (e.g., `performance_graph.png`) with the actual paths to your graphs if they are stored locally or on the web.
+- **Additional Sections**: Add any other sections specific to your project (like data sources, additional features, or analysis results).
+- **License**: If you’re using a specific license, adjust the License section accordingly.
 
-Conclusion
-
-This project offers an in-depth look into how the timing of investments (on specific days of the month) impacts the long-term performance of the S&P 500 index. By analyzing historical data, it provides insights that can guide investors in selecting an optimal investment day each month.
+This markdown provides a complete structure for documenting your project, including setup instructions, an overview of the analysis, and key visualizations.
